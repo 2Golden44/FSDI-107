@@ -1,0 +1,11 @@
+install virtual environment
+py -m pip install virtualenv
+
+2. to create a virtual environment
+py -m venv venv
+
+3. activate virtual environment
+venv\Scripts\activate
+
+4. create a server inside virtual environment (using flask)
+py -m pip install flask
