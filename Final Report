@@ -1,0 +1,40 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+# Sample catalog data
+catalog = []
+
+# Welcome message
+@app.route('/')
+def home():
+    return "Welcome to the Pet Store API!"
+
+# Get all products in the catalog
+@app.route('/api/catalog', methods=['GET'])
+def get_catalog():
+    return jsonify(catalog)
+
+# Add a new product to the catalog
+@app.route('/api/catalog', methods=['POST'])
+def add_product():
+    new_product = request.get_json()
+    catalog.append(new_product)
+    return jsonify(new_product), 201
+
+# Calculate the total value of the catalog
+@app.route('/api/reports/total', methods=['GET'])
+def total_value():
+    total = sum([product['price'] for product in catalog])
+    return jsonify({'total_value': total})
+
+# Get products by category
+@app.route('/api/products/<category>', methods=['GET'])
+def get_products_by_category(category):
+    products = [product for product in catalog if product['category'] == category]
+    return jsonify(products)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+
